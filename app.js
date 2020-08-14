@@ -1,17 +1,18 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const connection = require('./model');
-const express = require('express');
+const connection = require("./model");
+const express = require("express");
 const app = express();
-const routes = require('./routes');
-const bodyparsers = require('body-parser');
-const authRoute =  routes.auth;
+const cors = require('cors');
+const { authRoute, postRoute } = require('./routes');
+const authenticate = require("./routes/auth-token");
 const PORT = process.env.PORT || 5000;
 
-app.use(bodyparsers.urlencoded({
-    extended: true
-}))
 app.use(express.json());
-app.use('/api/auth', authRoute);
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use("/api/auth", authRoute);
+app.use(authenticate);
+app.use('/api/posts', postRoute);
 
-app.listen(PORT, () => console.log(`Now Listenong d(^_^)b on port: ${PORT}`))
+app.listen(PORT, () => console.log(`Now Listening d(^_^)b on port: ${PORT}`));
