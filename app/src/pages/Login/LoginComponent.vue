@@ -9,9 +9,8 @@
         </keep-alive>
       </q-card-section>
       <q-card-actions class="actions" left>
-        <q-btn :label="!isRegister?'Login': 'Register'" color="primary" />
         <q-btn
-          :label="isRegister? 'Have an Account? Sign in!': 'Register'"
+          :label="isRegister? 'Have an Account? Sign in!': 'Create Account'"
           color="primary"
           flat
           @click.prevent="ChangeForm"
@@ -23,7 +22,7 @@
 <script>
 import LoginForm from "./Login";
 import RegisterForm from "./Register";
-
+import { mapGetters, Store } from "vuex";
 export default {
   name: "LoginComponent",
   components: {

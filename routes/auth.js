@@ -17,7 +17,7 @@ route.post("/register", async (req, res) => {
     return res.status(400).json(validation.error.details[0].message);
   const { name, email, username, password } = req.body;
   const unique = await User.findOne({ email: email, username: username });
-  if (unique) return res.status(400).send("username or email already exist!");
+  if (unique) return res.status(406).send("username or email already exist!");
   const hashPass = await argon2.hash(password);
   const user = await new User({
     name,
@@ -29,7 +29,7 @@ route.post("/register", async (req, res) => {
 
   try {
     const savedUser = await user.save();
-    res.status(201).json(savedUser);
+    res.status(201).json({user: savedUser.name, msg: 'Kudos on registration! Please login.'});
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
@@ -43,7 +43,6 @@ route.post("/login", async (req, res) => {
   try {
     let checkUser = await User.findOne({ username });
     if (!checkUser) return res.status(400).json({msg: 'check username or password!!!'})
-
     // let checkPass = checkUser.clean_pass === password;
     let checkPass = await argon2.verify(checkUser.password, password);
     if (!checkPass) return res.status(400).json({msg: 'check username or password!!!'});

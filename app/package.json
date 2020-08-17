@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
+    "vue-notification": "^1.3.20",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
