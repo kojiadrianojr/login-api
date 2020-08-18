@@ -85,8 +85,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "RegisterForm",
   data() {
@@ -105,11 +103,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["register"]),
     async onSubmit(e) {
       e.preventDefault();
       try {
-        let response = await this.register(this.credentials);
+        let response = await this.$store.dispatch('auth/register', this.credentials);
         this.$notify({
           group: "auth",
           title: `Hello ${response.data.user} !`,

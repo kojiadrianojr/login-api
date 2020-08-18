@@ -9,13 +9,6 @@
 <script>
 
 export default {
-  prefetch({store, redirect}){
-   if (!store.state.credentials.authenticated){
-     redirect({ path: '/'})
-   } else {
-     redirect({ path: '/homepage'})
-   }
-  },
   name: 'MainLayout',
   data () {
     return {

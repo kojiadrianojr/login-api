@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+
 export default {
   name: "LoginForm",
   data() {
@@ -55,18 +55,20 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['login']),
-    async onSubmit(e){
-      e.preventDefault();
+    // ...mapActions(['login']),
+    async onSubmit(e) {
+      e.preventDefault(e);
       try {
-        let response = await this.login(this.credentials);
+        let response = await this.$store.dispatch("auth/login", this.credentials);
         this.$notify({
           group: "auth",
           title: `Hello ${response.data.userInfo.name} !`,
           text: "Login succesfully!",
           type: "success",
         });
-      }catch (e){
+         this.$router.push(this.$route.query.redirect || 'homepage');
+  
+      } catch (e) {
         this.$notify({
           group: "auth",
           title: "Check your credentials",
@@ -74,7 +76,7 @@ export default {
           type: "error",
         });
       }
-    }
+    },
   },
 };
 </script>
