@@ -3,7 +3,8 @@ export default function() {
     credentials: {
       authenticated: false,
       token: "",
-      userInfo: ""
+      userInfo: {},
+      otp_auth: false
     }
   };
 }

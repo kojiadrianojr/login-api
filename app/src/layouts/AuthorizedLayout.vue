@@ -23,6 +23,7 @@ export default {
           token: "",
           userInfo: {},
           authenticated: false,
+          otp_auth: false
         });
         this.$notify({
           group: "auth",

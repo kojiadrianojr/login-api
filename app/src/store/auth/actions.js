@@ -20,6 +20,7 @@ export const login = async ({ commit }, payload) => {
     username: payload.username,
     password: payload.password
   });
+
   commit("setCredential", response.data);
   return response;
 };
@@ -28,3 +29,12 @@ export const logout = async ({ commit }, payload) => {
   let response = commit("setCredential", payload);
   return { title: "Goodbye!", desc: "See you again soon!" };
 };
+
+export const validate = async ({commit}, payload) => {
+  let response = await API.post("/auth/validate", {
+    email: payload.email,
+    token: payload.token
+  })
+  commit("validate", response.data.otp_granted)
+  return response
+}
