@@ -102,17 +102,24 @@ export default {
       },
     };
   },
+  props: {
+    action: Function,
+  },
   methods: {
     async onSubmit(e) {
       e.preventDefault();
       try {
-        let response = await this.$store.dispatch('auth/register', this.credentials);
+        let response = await this.$store.dispatch(
+          "auth/register",
+          this.credentials
+        );
         this.$notify({
           group: "auth",
           title: `Hello ${response.data.user} !`,
           text: response.data.msg,
           type: "success",
         });
+        this.action();
       } catch (e) {
         this.$notify({
           group: "auth",

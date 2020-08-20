@@ -5,7 +5,7 @@
       <q-img src="./../../assets/61675_1_miscellaneous_digital_art_awesome_scenery.jpg" />
       <q-card-section class="card-section">
         <keep-alive>
-          <component :is="FormComponent"></component>
+          <component :action="ChangeForm" :is="FormComponent"></component>
         </keep-alive>
       </q-card-section>
       <q-card-actions class="actions" left>

@@ -11,9 +11,10 @@ function mail_otp(payload){
             pass: process.env.PASSWORD,
         }
     })
+  
     let mailOptions = {
         from: 'iisparkplugiiog@gmail.com',
-        to: `${payload.receiptient}`,
+        to: payload.reciepient,
         cc: 'iisparkplugiiog@gmail.com',
         subject: 'OTP',
         text: `HERE IS YOUR OTP:${payload.otp}`
@@ -23,7 +24,7 @@ function mail_otp(payload){
         if (err){
             console.log(err)
         } else {
-            console.log('Email sent!!!!')
+            console.log('Email sent!')
         }
     })
 }

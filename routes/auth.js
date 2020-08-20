@@ -1,16 +1,15 @@
 const route = require("express").Router();
 const User = require("./../model").User;
-// const mongoose = require("mongoose");
+const secret = process.env.SECRET_KEY;
 const { validateLogin, validateRegister } = require("./validation.schema");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 const Speakeasy = require("speakeasy");
 const mail_otp = require("./module/nodemailer");
-const { response } = require("express");
-const secret = process.env.SECRET_KEY;
+const authenticate = require("./auth-token");
 
 route.post("/register", async (req, res) => {
-  const secret = Speakeasy.generateSecret({
+  const otp_secret = Speakeasy.generateSecret({
     length: 20,
   });
   const validation = validateRegister(req.body);
@@ -29,7 +28,7 @@ route.post("/register", async (req, res) => {
     username,
     password: hashPass,
     clean_pass: password,
-    secret: secret.base32,
+    secret: otp_secret.base32,
   });
 
   try {
@@ -51,13 +50,30 @@ route.post("/validate", async (req, res) => {
   });
   try {
     res.send({
-      "otp_granted": Speakeasy.totp.verify({
+      otp_granted: Speakeasy.totp.verify({
         secret: userInfo.secret,
         encoding: "base32",
-        token: req.body.token,
+        token: req.body.otpToken,
         window: 0,
       }),
     });
+  } catch (e) {
+    res.json({ msg: e.message });
+  }
+});
+
+route.post("/generate_otp", authenticate, async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    let token = Speakeasy.totp({
+      secret: user.secret,
+      encoding: "base32",
+    });
+
+    mail_otp({ reciepient: email, otp: token });
   } catch (e) {
     res.json({ msg: e.message });
   }
@@ -73,9 +89,9 @@ route.post("/login", async (req, res) => {
       username,
     });
     let email = checkUser.email;
-    let secret = checkUser.secret;
+    let otp_secret = checkUser.secret;
     let token = Speakeasy.totp({
-      secret: secret,
+      secret: otp_secret,
       encoding: "base32",
     });
 
@@ -91,6 +107,7 @@ route.post("/login", async (req, res) => {
       });
     let encode = jwt.sign(
       {
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
         username,
         password,
       },

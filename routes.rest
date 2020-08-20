@@ -15,20 +15,29 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "username",
+    "username": "kojiadriano",
     "password": "pass123"
 }
 
 
 ###
 GET http://localhost:3000/api/posts
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzMTIzIiwiaWF0IjoxNTk3MzkyOTI4fQ.13ascMSbq3lajXCnbqoboeeH10DZq2PtnNkcXlt-ZZo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTc5MjY0MjUsInVzZXJuYW1lIjoia29qaWFkcmlhbm8iLCJwYXNzd29yZCI6InBhc3MxMjMiLCJpYXQiOjE1OTc5MjI4MjV9.PMAVd1lasDEeWkZGYvgHYMxO29j0n8Zr0BSxTIk89Uk
 
 ###
 POST http://localhost:3000/api/auth/validate
 Content-Type: application/json
 
 {
-    "email": "user@email.com",
-    "token": "471856"
+    "email": "rolando.koji98@gmail.com",
+    "token": "784660"
+}
+
+###
+POST http://localhost:3000/api/auth/generate_otp
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzMTIzIiwiaWF0IjoxNTk3MzkyOTI4fQ.13ascMSbq3lajXCnbqoboeeH10DZq2PtnNkcXlt-ZZo
+Content-Type: application/json
+
+{
+    "email": "rolando.koji98@gmail.com"
 }

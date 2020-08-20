@@ -40,7 +40,6 @@
       </q-input>
       <q-btn label="Login" color="primary" type="submit" />
     </q-form>
-
     <OTPComp :prompt="OTP_config.prompt" :promptFn="showPrompt" />
   </div>
 </template>

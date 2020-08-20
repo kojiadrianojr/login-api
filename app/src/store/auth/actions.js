@@ -30,11 +30,21 @@ export const logout = async ({ commit }, payload) => {
   return { title: "Goodbye!", desc: "See you again soon!" };
 };
 
-export const validate = async ({commit}, payload) => {
+export const validate = async ({ commit }, payload) => {
   let response = await API.post("/auth/validate", {
     email: payload.email,
-    token: payload.token
-  })
-  commit("validate", response.data.otp_granted)
-  return response
-}
+    otpToken: payload.otpToken
+  });
+  commit("validate", response.data.otp_granted);
+  return response;
+};
+
+export const generate_otp = async ({ commit }, payload) => {
+  let response = API.post(
+    "/auth/generate_otp",
+    {
+      email: payload.email
+    },
+    { headers: { Authorization: `bearer ${payload.jwtToken}` } }
+  );
+};
