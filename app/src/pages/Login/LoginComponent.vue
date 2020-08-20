@@ -50,8 +50,5 @@ export default {
 </script>
 
 <style scoped>
-.card-section {
-}
-.actions {
-}
+
 </style>
