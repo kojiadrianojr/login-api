@@ -51,7 +51,7 @@ export default {
       this.dis_button = !this.dis_button;
     },
     onCancel() {
-      this.$store.dispatch("aut/logout", {
+      this.$store.dispatch("auth/logout", {
         token: "",
         userInfo: {},
         authenticated: false,

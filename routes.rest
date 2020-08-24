@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/posts
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTc5MjY0MjUsInVzZXJuYW1lIjoia29qaWFkcmlhbm8iLCJwYXNzd29yZCI6InBhc3MxMjMiLCJpYXQiOjE1OTc5MjI4MjV9.PMAVd1lasDEeWkZGYvgHYMxO29j0n8Zr0BSxTIk89Uk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTgyNTEzNzUsInVzZXJuYW1lIjoia29qaWFkcmlhbm8iLCJwYXNzd29yZCI6InBhc3MxMjMiLCJpYXQiOjE1OTgyNDc3NzV9.U74SB-bx-9QmQwE97gd7bFRkS-Nc_Wf16wQIpTjnb8g
 
 ###
 POST http://localhost:3000/api/auth/validate
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
     "email": "rolando.koji98@gmail.com",
-    "token": "784660"
+    "token": "672975"
 }
 
 ###

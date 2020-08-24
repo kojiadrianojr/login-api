@@ -1,7 +1,7 @@
 const route = require("express").Router();
 const User = require("./../model").User;
 const secret = process.env.SECRET_KEY;
-const { validateLogin, validateRegister } = require("./validation.schema");
+const { validateLogin, validateRegister } = require("./module/validation.schema");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 const Speakeasy = require("speakeasy");
@@ -16,11 +16,14 @@ route.post("/register", async (req, res) => {
   if (validation.error)
     return res.status(400).json(validation.error.details[0].message);
   const { name, email, username, password } = req.body;
-  const unique = await User.findOne({
+  const unique_email = await User.findOne({
     email: email,
-    username: username,
   });
-  if (unique) return res.status(406).send("username or email already exist!");
+  const unique_username = await User.findOne({
+    username: username,
+  })
+  if (unique_email) return res.status(406).send("username or email already exist!");
+  if (unique_username) return res.status(406).send("username or email already exist!");
   const hashPass = await argon2.hash(password);
   const user = await new User({
     name,
